@@ -2,6 +2,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 
 type IPData = {
   ip: string;
@@ -10,9 +11,16 @@ type IPData = {
   postalCode: string;
   time: string;
   isp: string;
+  lat: number;
+  lng: number;
 };
 
+const MapNoSSR = dynamic(() => import("./components/MapNoSSR"), {
+  ssr: false,
+});
+
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
   const [ipData, setIpData] = useState<IPData>({
     ip: "",
     region: "",
@@ -20,10 +28,16 @@ export default function Home() {
     postalCode: "",
     time: "",
     isp: "",
+    lat: 51.505,
+    lng: -0.09,
   });
   const [formData, setFormData] = useState({
     userInput: "",
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const fetchFirst = async () => {
@@ -42,6 +56,8 @@ export default function Home() {
               postalCode: res.data.location.postalCode,
               time: res.data.location.timezone,
               isp: res.data.isp,
+              lat: res.data.location.lat,
+              lng: res.data.location.lng,
             }));
           } catch (err) {
             console.log(err);
@@ -80,6 +96,8 @@ export default function Home() {
         postalCode: res.data.location.postalCode,
         time: res.data.location.timezone,
         isp: res.data.isp,
+        lat: res.data.location.lat,
+        lng: res.data.location.lng,
       }));
       console.log(res.data.location.postalCode);
     } catch (err) {
@@ -126,7 +144,10 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="absolute top-[22%] left-1/2 -translate-x-1/2 z-10 w-[80%]">
+      <div
+        className="absolute top-[22%] left-1/2 -translate-x-1/2 w-[80%]"
+        style={{ zIndex: 9999 }}
+      >
         <div className="card w-full h-44 bg-white text-black card-xl shadow-sm">
           <div className="card-body flex flex-row justify-evenly items-start">
             <div className="flex flex-col gap-3">
@@ -171,6 +192,22 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <section
+        className="w-full -z-10"
+        style={{ height: "calc(100dvh - 280px)" }}
+      >
+        <div className="w-full h-full overflow-hidden shadow-lg">
+          {mounted && ipData.lat && ipData.lng && (
+            <MapNoSSR
+              lat={ipData.lat}
+              lng={ipData.lng}
+              ip={ipData.ip}
+              city={ipData.city}
+              region={ipData.region}
+            />
+          )}
+        </div>
+      </section>
     </main>
   );
 }
