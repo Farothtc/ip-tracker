@@ -34,6 +34,18 @@ export default function Home() {
   const [formData, setFormData] = useState({
     userInput: "",
   });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -104,20 +116,24 @@ export default function Home() {
       console.log(err);
     }
   };
-  const cardTitle = "card-title text-sm text-gray-400 tracking-widest";
-  const cardDataCss = "text-black font-semibold text-2xl";
+  const cardTitle =
+    "card-title text-xs text-gray-400 tracking-widest flex justify-center lg:text-sm lg:justify-start";
+  const cardDataCss =
+    "text-black font-semibold text-center lg:text-start text-lg md:text-xl lg:text-2xl";
 
   return (
     <main className="min-h-screen">
       <section className="bg-[url('/pattern-bg-desktop.png')] bg-cover h-[280px]">
         <div className="flex flex-col justify-center items-center pt-5 gap-10">
-          <h1 className="text-4xl font-semibold">IP Address Tracker</h1>
+          <h1 className="text-2xl lg:text-4xl font-semibold">
+            IP Address Tracker
+          </h1>
           <div className="flex w-full">
             <form
               action="#"
               className="flex justify-center items-center w-full gap-0"
             >
-              <div className="join w-[35%]">
+              <div className="join w-[85%] md:w-[65%] lg:w-[35%]">
                 <input
                   type="text"
                   name="userInput"
@@ -126,7 +142,7 @@ export default function Home() {
                     setFormData({ ...formData, userInput: e.target.value })
                   }
                   placeholder="Search for any IP address or domain"
-                  className="input w-full h-14 rounded-s-xl bg-white placeholder:text-gray-400 placeholder:ps-2 placeholder:text-lg text-black"
+                  className="input w-full h-14 rounded-s-xl bg-white placeholder:text-gray-400 placeholder:ps-2  placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-lg text-black text-xl hover:bg-white"
                 />
                 <button
                   className="btn btn-ghost bg-[#000000] hover:bg-[#3f3f3f] h-auto w-16 rounded-e-xl"
@@ -145,11 +161,11 @@ export default function Home() {
         </div>
       </section>
       <div
-        className="absolute top-[22%] left-1/2 -translate-x-1/2 w-[80%]"
+        className="absolute top-[22%] left-1/2 -translate-x-1/2 w-[85%] lg:w-[80%]"
         style={{ zIndex: 9999 }}
       >
-        <div className="card w-full h-44 bg-white text-black card-xl shadow-sm">
-          <div className="card-body flex flex-row justify-evenly items-start">
+        <div className="card w-full h-auto lg:h-44 bg-white text-black card-xl shadow-sm">
+          <div className="card-body flex flex-col items-center justify-center md:flex-col lg:flex-row lg:justify-evenly lg:items-start">
             <div className="flex flex-col gap-3">
               <h2 className={`${cardTitle}`}>IP ADDRESS</h2>
               {ipData.ip !== "" ? (
