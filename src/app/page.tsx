@@ -77,7 +77,7 @@ export default function Home() {
     return ipv4.test(e) || ipv6.test(e);
   };
 
-  const handleClick = async (e: any) => {
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userInputGeo = formData.userInput;
     let searchGeo = "";
@@ -120,6 +120,7 @@ export default function Home() {
             <form
               action="#"
               className="flex justify-center items-center w-full gap-0"
+              onSubmit={handleClick}
             >
               <div className="join w-[85%] md:w-[65%] lg:w-[35%]">
                 <input
@@ -132,10 +133,7 @@ export default function Home() {
                   placeholder="Search for any IP address or domain"
                   className="input w-full h-14 rounded-s-xl bg-white placeholder:text-gray-400 placeholder:ps-2  placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-lg text-black text-xl hover:bg-white"
                 />
-                <button
-                  className="btn btn-ghost bg-[#000000] hover:bg-[#3f3f3f] h-auto w-16 rounded-e-xl"
-                  onClick={handleClick}
-                >
+                <button className="btn btn-ghost bg-[#000000] hover:bg-[#3f3f3f] h-auto w-16 rounded-e-xl">
                   <Image
                     src={"/icon-arrow.svg"}
                     alt="Arrow"
