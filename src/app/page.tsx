@@ -149,7 +149,7 @@ export default function Home() {
         </div>
       </section>
       <div
-        className="absolute top-[22%] left-1/2 -translate-x-1/2 w-[85%] lg:w-[80%]"
+        className="absolute top-[20%] md:top-[22%] left-1/2 -translate-x-1/2 w-[85%] lg:w-[80%]"
         style={{ zIndex: 9999 }}
       >
         <div className="card w-full h-auto lg:h-44 bg-white text-black card-xl shadow-sm">
