@@ -20,4 +20,4 @@ This is a project that aims to track desired IPs.
 - try-catch,
 - Regexes.
 
-Check it out on [here](https://url-shortening-peach.vercel.app) !
+Check it out on [here](https://ip-tracker-seven-mu.vercel.app) !
