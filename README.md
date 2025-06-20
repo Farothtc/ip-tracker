@@ -8,17 +8,16 @@ This is a project that aims to track desired IPs.
 - TypeScript,
 - Tailwind CSS,
 - daisyUI,
-- Next.js API Routes,
+- React Leaflet,
 - Axios.
 
 ### Used Methods/Hooks:
 
 - useState,
 - useEffect,
-- map(),
-- Conditional Rendering (&& and ?),
+- Conditional Rendering,
 - Array destructuring,
-- POST API route,
-- POST method.
+- try-catch,
+- Regexes.
 
 Check it out on [here](https://url-shortening-peach.vercel.app) !
